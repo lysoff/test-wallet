@@ -2,10 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
-
-import walletReducer from "./redux/wallets/walletSlice";
-import secretsReducer from "./redux/secrets/secretSlice";
-import balanceReducer from "./redux/balances/balanceSlice";
+import { rootReducer } from "./rootReducer";
 
 const persistConfig = {
   key: "root",
@@ -14,14 +11,7 @@ const persistConfig = {
   whitelist: ["wallets"],
 };
 
-const persistedReducer = persistReducer(
-  persistConfig,
-  combineReducers({
-    wallets: walletReducer,
-    balances: balanceReducer,
-    secrets: secretsReducer,
-  })
-);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,

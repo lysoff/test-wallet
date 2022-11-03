@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBalance } from "../redux/balances/actions";
-import { RootState } from "../store";
+import { RootState } from "../redux/store";
 import Secrets from "./Secrets";
 
 import styles from '../styles/Wallet.module.css';

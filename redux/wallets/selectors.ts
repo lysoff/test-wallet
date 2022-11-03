@@ -1,4 +1,4 @@
-import { RootState } from "./../../store";
+import { RootState } from "../store";
 import { createSelector } from "@reduxjs/toolkit";
 
 const selectWalletsSlice = (state: RootState) => state.wallets;

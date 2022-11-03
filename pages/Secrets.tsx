@@ -7,7 +7,7 @@ import Input from "../components/input";
 import Submit from "../components/submit";
 import { revealSecrets } from "../redux/secrets/actions";
 import { clearSecrets } from "../redux/secrets/secretSlice";
-import { RootState } from "../store";
+import { RootState } from "../redux/store";
 
 import styles from "../styles/Secrets.module.css";
 

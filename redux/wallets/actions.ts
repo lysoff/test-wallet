@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import ethService from "../../services/ethers";
+import ethService from "../../services/ethService";
 
 export type CreateWalletPayload = {
   password: string;
@@ -12,7 +12,7 @@ export type CreateWalletReturn = {
   encryptedJSON: string;
 };
 
-export const createWallet: any = createAsyncThunk(
+export const createWallet: any = createAsyncThunk<CreateWalletReturn, CreateWalletPayload>(
   "wallets/createWallet",
   async ({ password, alias }: CreateWalletPayload) => {
     const { address, encryptedJSON } = await ethService.createWalletAsync(password);

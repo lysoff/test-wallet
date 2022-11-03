@@ -16,7 +16,7 @@ export default function WalletForm() {
  const dispatch = useDispatch();
 
  const handleCreateWallet = handleSubmit(({ password, alias }) => {
-  dispatch(createWallet(password, alias));
+  dispatch(createWallet({ password, alias }));
   reset();
  });
 

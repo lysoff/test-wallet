@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import ethService from "../../services/ethers";
+import ethService from "../../services/ethService";
 
 export type GetBalancePayload = {
   address: string;
