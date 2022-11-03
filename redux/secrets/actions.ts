@@ -1,10 +1,17 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { revealSecretsAsync } from "../../services/ethers";
-import { AppDispatch } from "../../store";
-import { addSecrets } from "./secretSlice";
 
-export const revealSecrets =
-  (address: string, encryptedJSON: string, password: string) => async (dispatch: AppDispatch) => {
+export type RevealSecretsPayload = {
+  address: string;
+  encryptedJSON: string;
+  password: string;
+};
+
+export const revealSecrets: any = createAsyncThunk(
+  "secrets/reveal",
+  async ({ encryptedJSON, password }: RevealSecretsPayload) => {
     const { privateKey, mnemonicPhrase } = await revealSecretsAsync(encryptedJSON, password);
 
-    dispatch(addSecrets({ privateKey, mnemonicPhrase }));
-  };
+    return { privateKey, mnemonicPhrase };
+  }
+);

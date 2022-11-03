@@ -18,7 +18,7 @@ const initialState: WalletState = {
 };
 
 export const walletSlice = createSlice({
-  name: "wallet",
+  name: "wallets",
   initialState,
   reducers: {
     addWallet: (state, action: PayloadAction<{ address: string; encryptedJSON: string; alias: string }>) => {

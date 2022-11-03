@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { createWallet } from '../redux/wallets/actions';
@@ -11,10 +10,8 @@ export default function NewWalletForm() {
  } = useForm();
  const dispatch = useDispatch();
 
- const promiseRef = useRef(null);
-
  const handleCreateWallet = handleSubmit(({ password, alias }) => {
-  promiseRef.current = dispatch(createWallet(password, alias));
+  dispatch(createWallet(password, alias));
  });
 
 
