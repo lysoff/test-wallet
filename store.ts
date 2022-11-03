@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import walletReducer from "./features/wallet/walletSlice";
+import walletReducer from "./redux/wallets/walletSlice";
+import secretsReducer from "./redux/secrets/secretSlice";
 
 export const store = configureStore({
   reducer: {
-    wallet: walletReducer,
+    wallets: walletReducer,
+    secrets: secretsReducer,
   },
 });
 

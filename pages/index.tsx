@@ -1,41 +1,15 @@
-
-import { ChangeEvent, KeyboardEvent, useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Head from 'next/head'
 import Image from 'next/image'
 
-import { add, remove } from '../features/wallet/walletSlice'
-import { RootState } from '../store'
-
 import styles from '../styles/Home.module.css'
+import WalletForm from './WalletForm';
+import { selectWallets } from '../redux/wallets/selectors';
+import Link from 'next/link'
 
 export default function Home() {
-  const [name, setName] = useState("")
-
-  const wallets = useSelector((state: RootState) => state.wallet.list);
-  const dispatch = useDispatch();
-
-  console.log(wallets);
-
-  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  }, [])
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.code === "Enter") {
-      handleAdd();
-    }
-  }
-
-  const handleAdd = () => {
-    dispatch(add({
-      name,
-    }));
-    setName('');
-  };
-
-  const handleRemove = (index: number) => dispatch(remove(index));
+  const wallets = useSelector(selectWallets);
 
   return (
     <div className={styles.container}>
@@ -46,14 +20,10 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <input onChange={handleChange} onKeyDown={handleKeyDown} value={name} />
+        <WalletForm />
 
-        <button onClick={handleAdd}>Add</button>
-        {wallets.map((wallet, index) => (
-          <li key={wallet.name}>
-            {wallet.name}
-            <button onClick={e => handleRemove(index)}>X</button>
-          </li>
+        {wallets.map(wallet => (
+          <Link key={wallet.address} href={`/${wallet.address}`}>{wallet.alias} ({wallet.address})</Link>
         ))}
       </main>
     </div>
