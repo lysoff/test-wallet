@@ -30,6 +30,8 @@ export async function revealSecretsAsync(
   };
 }
 
-export async function getBalanceAsync(address: string): Promise<BigNumber> {
-  return provider.getBalance(address);
+export async function getBalanceAsync(address: string): Promise<string> {
+  const balance = await provider.getBalance(address);
+
+  return ethers.utils.formatEther(balance);
 }
