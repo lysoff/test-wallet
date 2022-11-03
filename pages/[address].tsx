@@ -1,15 +1,17 @@
-import Link from "next/link";
+import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBalance } from "../redux/balances/actions";
-import { removeWallet } from "../redux/wallets/walletSlice";
 import { RootState } from "../store";
 import Secrets from "./Secrets";
+
+import styles from '../styles/Wallet.module.css';
 
 export default function Wallet() {
  const dispatch = useDispatch();
  const router = useRouter();
+ const [showSecrets, setShowSecrets] = useState(false);
 
  const address = router.query.address as string;
 
@@ -20,19 +22,24 @@ export default function Wallet() {
   dispatch(getBalance({ address }))
  }, []);
 
- const handleRemoveClick = () => dispatch(removeWallet(address));
-
-
+ if (!wallet) {
+  return "Loading..."
+ }
 
  return (
   <>
-   <Link href="/">Back</Link>
-   <br />
-   <br />
-   <div>
-    <div>{wallet.alias} ({address})</div>
-    <h1>{balance}</h1>
-    <Secrets encryptedJSON={wallet.encryptedJSON} />
+   <Head>
+    <title>{wallet.alias} - Test Wallet</title>
+   </Head>
+   <div className={styles.container}>
+    <div className={styles.alias}>{wallet.alias}</div>
+    <div className={styles.address}>{address}</div>
+    <div className={styles.balance}>{balance ?? '--'}</div>
+
+    {showSecrets ? <Secrets encryptedJSON={wallet.encryptedJSON} /> : (
+     <span className={styles.showSecrets} onClick={() => setShowSecrets(true)}>Reveal private key and mnemonic phrase</span>
+    )}
+
    </div>
   </>
  )

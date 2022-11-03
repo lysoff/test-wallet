@@ -1,0 +1,7 @@
+.walletForm {
+  display: flex;
+}
+
+.walletForm > * {
+  margin-right: 0.5rem;
+}

@@ -1,9 +1,14 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import Input from '../components/input';
+import Submit from '../components/submit';
 import { createWallet } from '../redux/wallets/actions';
 
-export default function NewWalletForm() {
+import styles from '../styles/WalletForm.module.css';
+
+export default function WalletForm() {
  const {
+  reset,
   register,
   handleSubmit,
   formState: { errors },
@@ -12,15 +17,16 @@ export default function NewWalletForm() {
 
  const handleCreateWallet = handleSubmit(({ password, alias }) => {
   dispatch(createWallet(password, alias));
+  reset();
  });
 
 
  return (
-  <form onSubmit={handleCreateWallet}>
-   <input {...register('alias')} />
-   <input {...register('password', { required: true })} type="password" />
+  <form className={styles.walletForm} onSubmit={handleCreateWallet}>
+   <Input placeholder='Wallet name' {...register('alias', { required: true })} />
+   <Input placeholder='Password' {...register('password', { required: true })} type="password" />
 
-   <input type="submit" value="Add Wallet" />
+   <Submit>Add Wallet</Submit>
   </form>
  );
 }

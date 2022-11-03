@@ -1,0 +1,26 @@
+.container {
+  padding: 0.5rem 0;
+}
+
+.alias {
+  color: darkslategray;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.address {
+  color: slategray;
+  font-size: 0.75rem;
+}
+
+.balance {
+  margin: 2rem 0;
+  font-size: 3rem;
+}
+
+.showSecrets {
+  color: slategray;
+  font-size: 0.75rem;
+  cursor: pointer;
+  border-bottom: 1px dotted slategray;
+}

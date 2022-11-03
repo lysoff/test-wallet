@@ -1,0 +1,32 @@
+.container {
+  padding: 1rem;
+}
+
+.main {
+  min-height: 100vh;
+  padding: 1rem;
+  flex: 1;
+}
+
+.appBar {
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  background-color: cadetblue;
+}
+
+.caption {
+  color: white;
+  font-size: xx-large;
+  font-weight: 600;
+}
+
+.dropdown {
+  padding: 0.5rem;
+  width: 200px;
+}
+
+.dropdown > option {
+  padding: 3rem;
+}
