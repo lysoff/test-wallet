@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { createWallet } from "./actions";
 
 export type Wallet = {
   address: string;
@@ -21,24 +22,29 @@ export const walletSlice = createSlice({
   name: "wallets",
   initialState,
   reducers: {
-    addWallet: (state, action: PayloadAction<{ address: string; encryptedJSON: string; alias: string }>) => {
-      const { address, encryptedJSON, alias } = action.payload;
-
-      state.addresses.push(address);
-      state.items[address] = {
-        address,
-        alias,
-        encryptedJSON,
-      };
-    },
     removeWallet: (state, action: PayloadAction<string>) => {
       const [address] = state.addresses.splice(state.addresses.indexOf(action.payload), 1);
 
       delete state.items[address];
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(
+      createWallet.fulfilled,
+      (state, action: PayloadAction<{ address: string; encryptedJSON: string; alias: string }>) => {
+        const { address, encryptedJSON, alias } = action.payload;
+
+        state.addresses.push(address);
+        state.items[address] = {
+          address,
+          alias,
+          encryptedJSON,
+        };
+      }
+    );
+  },
 });
 
-export const { addWallet, removeWallet } = walletSlice.actions;
+export const { removeWallet } = walletSlice.actions;
 
 export default walletSlice.reducer;

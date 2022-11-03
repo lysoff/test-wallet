@@ -1,15 +1,26 @@
-import { createWalletAsync, revealSecretsAsync } from "../../services/ethers";
-import { AppDispatch } from "../../store";
-import { addWallet } from "./walletSlice";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import ethService from "../../services/ethers";
 
-export const createWallet: any = (password: string, alias: string) => async (dispatch: AppDispatch) => {
-  const { address, encryptedJSON } = await createWalletAsync(password);
+export type CreateWalletPayload = {
+  password: string;
+  alias: string;
+};
 
-  dispatch(
-    addWallet({
+export type CreateWalletReturn = {
+  alias: string;
+  address: string;
+  encryptedJSON: string;
+};
+
+export const createWallet: any = createAsyncThunk(
+  "wallets/createWallet",
+  async ({ password, alias }: CreateWalletPayload) => {
+    const { address, encryptedJSON } = await ethService.createWalletAsync(password);
+
+    return {
       alias,
       address,
       encryptedJSON,
-    })
-  );
-};
+    };
+  }
+);

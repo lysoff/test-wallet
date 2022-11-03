@@ -1,12 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getBalanceAsync } from "../../services/ethers";
+import ethService from "../../services/ethers";
 
 export type GetBalancePayload = {
   address: string;
 };
 
 export const getBalance: any = createAsyncThunk("balances/getBalance", async ({ address }: GetBalancePayload) => {
-  const balance = await getBalanceAsync(address);
+  const balance = await ethService.getBalanceAsync(address);
   return {
     address,
     balance,
