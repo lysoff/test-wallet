@@ -8,7 +8,7 @@ const persistConfig = {
   key: "root",
   storage,
   version: 1,
-  whitelist: ["wallets"],
+  whitelist: ["wallets", "network"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

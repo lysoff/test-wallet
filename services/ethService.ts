@@ -5,8 +5,12 @@ const ALCHEMY_API_KEY = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY as string;
 let provider: ethers.providers.AlchemyProvider;
 
 const ethService = {
-  initProvider(network?: string): void {
-    provider = new ethers.providers.AlchemyProvider(network, ALCHEMY_API_KEY);
+  async initProvider(network: string): Promise<string> {
+    new ethers.providers.AlchemyProvider(network, ALCHEMY_API_KEY);
+
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(network), 500);
+    });
   },
 
   async createWalletAsync(password: string): Promise<{ address: string; encryptedJSON: string }> {

@@ -19,7 +19,7 @@ export default function Wallet() {
  const balance = useSelector((state: RootState) => state.balances.balances[address])
 
  useEffect(() => {
-  dispatch(getBalance({ address }))
+  dispatch(getBalance({ address }));
  }, []);
 
  if (!wallet) {
